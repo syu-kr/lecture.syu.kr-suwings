@@ -50,8 +50,9 @@ class StartProcess(BaseProcess):
     options.add_argument("disable-gpu")
     # options.add_argument("disable-infobars")
     # options.add_argument("--disable-extensions")
-      
+    
     self.DRIVER = webdriver.Chrome(executable_path = CHROMIUM_PATH, options = options)
     self.DRIVER.get("https://suwings.syu.ac.kr/sso/login.jsp")
     
+    self.LOGGER.info(self.OPTIONS["year"] + " - " + self.OPTIONS["semester"])
     self.LOGGER.info("StartProcess succeeded...")

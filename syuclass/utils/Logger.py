@@ -32,7 +32,7 @@ class Logger:
                 /____/                                        /_/              /___/                 
           
           Unofficial su-wings (SAHMYOOK UNIV.) lecture information system.
-          Github: https://github.com/0verfl0w767/syu-class-api
+          Github: https://github.com/syu-kr/lecture.syu.kr-crawlings
           Author: 0verfl0w767 (https://github.com/0verfl0w767)
           Version: 1.0v
           License: MIT LICENSE
