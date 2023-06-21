@@ -1,0 +1,36 @@
+########### rawClassInfo data
+# rawClassInfo[0]: 순번
+# rawClassInfo[1]: 알 수 없음
+# rawClassInfo[2]: 강좌번호
+# rawClassInfo[3]: 과목코드
+# rawClassInfo[4]: 과목명
+# rawClassInfo[5]: 학부(과)
+# rawClassInfo[6]: 공백
+# rawClassInfo[7]: 학년
+# rawClassInfo[8]: 이수구분
+# rawClassInfo[9]: 영역구분
+# rawClassInfo[10]: 학점
+# rawClassInfo[11]: 알 수 없음
+# rawClassInfo[12]: 알 수 없음
+# rawClassInfo[13]: 교수명
+# rawClassInfo[14]: 수업시간/장소
+# rawClassInfo[15]: 수업시간
+# rawClassInfo[16]: 장소
+# rawClassInfo[17]: 출력
+# rawClassInfo[18]: 공백
+# rawClassInfo[19]: 평가조회
+# rawClassInfo[20]: 공백
+# rawClassInfo[21]: 공백
+# rawClassInfo[22]: 공백
+# rawClassInfo[23]: 공백
+# rawClassInfo[24]: 알 수 없음
+# rawClassInfo[25]: 알 수 없음
+# rawClassInfo[26]: 알 수 없음
+# rawClassInfo[27]: 개설년도
+# rawClassInfo[28]: 개설학기
+# rawClassInfo[29]: 알 수 없음
+# rawClassInfo[30]: 알 수 없음
+# rawClassInfo[31]: 알 수 없음
+# rawClassInfo[32]: 알 수 없음
+# rawClassInfo[33]: 알 수 없음
+########### rawClassInfo data

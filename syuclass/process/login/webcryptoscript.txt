@@ -1,0 +1,53 @@
+# webcrypto not loaded:
+# {
+#   "checkBrowser": {},
+#   "getBrowserInfo": {},
+#   "getBrowserVersion": {},
+#   "getPlatformInfo": {},
+#   "isLoadModule": {},
+#   "loadModule": {},
+#   "loadPfxFileIframe": {},
+#   "loadScript": {},
+#   "namespace": {},
+#   "scriptVersion": "3.0.0.6",
+# }
+
+# webcrypto loaded
+# {
+#   "checkBrowser": {},
+#   "e2e": {
+#       "checkModuleVersion": {},
+#       "getLastErrMsg": {},
+#       "getPasswordKeboardSession": {},
+#       "getVersion": {},
+#       "hashMessage": {},
+#       "hybridEncrypt": {},
+#       "hybridEncryptKeyboardSession": {},
+#       "initializeModule": {},
+#       "sessionDecrypt": {},
+#       "sessionEncrypt": {},
+#       "sessionFinalize": {},
+#       "setSessionTime": {},
+#       "web": {
+#           "getLastErrMsg": {},
+#           "getPasswordKeboardSession": {},
+#           "hashMessage": {},
+#           "hybridEncrypt": {},
+#           "hybridEncryptKeyboardSession": {},
+#           "sessionDecrypt": {},
+#           "sessionEncrypt": {},
+#           "sessionFinalize": {},
+#           "setSessionTime": {},
+#       },
+#   },
+#   "getBrowserInfo": {},
+#   "getBrowserVersion": {},
+#   "getPlatformInfo": {},
+#   "isLoadModule": {},
+#   "loadModule": {},
+#   "loadPfxFileIframe": {},
+#   "loadScript": {},
+#   "msg": {"getLanguageConfig": {}, "getMessage": {}, "setLanguageConfig": {}},
+#   "namespace": {},
+#   "scriptVersion": "3.0.0.6",
+# }
