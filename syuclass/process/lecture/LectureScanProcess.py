@@ -30,7 +30,7 @@ class LectureScanProcess(BaseProcess):
     self.OPTIONS = OPTIONS
     self.LOGGER = LOGGER
     
-    self.API = API(OPTIONS, LOGGER)
+    self.API = API(OPTIONS)
   
   def onRun(self) -> None:
     self.DRIVER.switch_to.frame("iframe1")
@@ -41,11 +41,14 @@ class LectureScanProcess(BaseProcess):
     ).click()
     
     soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
+    
     identification = 0
     
-    for collegeTD in soup.select("table[id=\"sbF_COLG_CD_itemTable_main\"] tbody tr td"):
-      if collegeTD["id"] == "sbF_COLG_CD_itemTable_0":
-        continue
+    collegeTDS = soup.select("table[id=\"sbF_COLG_CD_itemTable_main\"] tbody tr td")[1:]
+    
+    for collegeTD in collegeTDS:
+      # if collegeTD["id"] == "sbF_COLG_CD_itemTable_0":
+      #   continue
       
       WebDriverWait(self.DRIVER, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//*[@id=\"" + collegeTD["id"] + "\"]"))
@@ -59,9 +62,11 @@ class LectureScanProcess(BaseProcess):
       
       soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
       
-      for undergraduateTD in soup.select("table[id=\"sbF_FCLT_CD_itemTable_main\"] tbody tr td"):
-        if undergraduateTD["id"] == "sbF_FCLT_CD_itemTable_0":
-          continue
+      undergraduateTDS = soup.select("table[id=\"sbF_FCLT_CD_itemTable_main\"] tbody tr td")[1:]
+      
+      for undergraduateTD in undergraduateTDS:
+        # if undergraduateTD["id"] == "sbF_FCLT_CD_itemTable_0":
+        #   continue
         
         identification += 1
         

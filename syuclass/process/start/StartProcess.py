@@ -44,7 +44,7 @@ class StartProcess(BaseProcess):
     
     options = Options()
     
-    if not self.OPTIONS["dev"]:
+    if not self.OPTIONS["browser_head"]:
       options.add_argument("headless")
     
     options.add_argument("disable-gpu")

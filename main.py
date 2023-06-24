@@ -15,10 +15,8 @@
 from syuclass.config.ConfigManager import ConfigManager
 from syuclass.process.ProcessManager import ProcessManager
 
-DEBUGGER = False # Default: False
-
-CONFIGMANAGER = ConfigManager(DEBUGGER)
+CONFIGMANAGER = ConfigManager()
 CONFIG_OPTIONS = CONFIGMANAGER.onRun()
 
-PROCESSMANAGER = ProcessManager(CONFIG_OPTIONS, DEBUGGER)
+PROCESSMANAGER = ProcessManager(CONFIG_OPTIONS)
 PROCESSMANAGER.onRun()

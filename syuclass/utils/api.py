@@ -18,9 +18,9 @@ import json
 from syuclass.utils.Logger import Logger
 
 class API:
-  def __init__(self, OPTIONS: dict, LOGGER: Logger):
+  def __init__(self, OPTIONS: dict):
     self.OPTIONS = OPTIONS
-    self.LOGGER = LOGGER
+    self.LOGGER = Logger()
     
     self.apiData = []
   
@@ -65,4 +65,5 @@ class API:
     with open(self.API_PATH, "w", encoding = "utf-8") as f:
       json.dump(apiJson, f, ensure_ascii = False, indent = 2)
     
-    self.LOGGER.debuggerInfo("Check the file: " + self.API_PATH)
+    if self.OPTIONS["debugger"]:
+      self.LOGGER.debuggerInfo("Check the file: " + self.API_PATH)

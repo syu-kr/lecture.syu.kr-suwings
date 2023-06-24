@@ -24,10 +24,10 @@ from syuclass.process.lecture.LectureScanProcess import LectureScanProcess
 from syuclass.utils.Logger import Logger
 
 class ProcessManager:
-  def __init__(self, OPTIONS: dict, DEBUGGER: bool):
+  def __init__(self, OPTIONS: dict):
     self.OPTIONS = OPTIONS
     
-    self.LOGGER = Logger(DEBUGGER)
+    self.LOGGER = Logger()
       
   def onRun(self) -> None:
     self.LOGGER.logo()

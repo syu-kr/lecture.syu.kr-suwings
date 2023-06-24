@@ -15,9 +15,12 @@
 import datetime
 import sys
 
+from syuclass.config.ConfigManager import ConfigManager
+
 class Logger:
-  def __init__(self, DEBUGGER: bool = False):
-    self.DEBUGGER = DEBUGGER
+  def __init__(self):
+    # self.CONFIG = ConfigManager()
+    pass
   
   def getTime(self) -> str:
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -36,7 +39,6 @@ class Logger:
           Author: 0verfl0w767 (https://github.com/0verfl0w767)
           Version: 1.0v
           License: MIT LICENSE
-          Debugger: {self.DEBUGGER}
           
     """
     sys.stdout.write(logo)
@@ -45,30 +47,28 @@ class Logger:
     sys.stdout.write("[" + self.getTime() + "] [INFO] " + text + "\n")
   
   def debuggerInfo(self, text: str) -> None:
-    if self.DEBUGGER == True:
-      sys.stdout.write("[" + self.getTime() + "] [DEBUGGER] " + text + "\n")
+    sys.stdout.write("[" + self.getTime() + "] [DEBUG] " + text + "\n")
   
   def progress(self, iteration: int, total: int, decimals: int = 1, barLength: int = 100) -> None:
-    if self.DEBUGGER == False:
-      formatStr = "{0:." + str(decimals) + "f}"
-      
-      if iteration == 0 and total == 0:
-        percent = formatStr.format(total)
-        bar = "\033[101m-\033[0m" * barLength
-        
-        sys.stdout.write("\r%s [%s] %s%s " % ("[" + self.getTime() + "] [INFO]", bar, percent, "%"))
-        sys.stdout.write("(abolished)")
-        sys.stdout.write("\n")
-        sys.stdout.flush()
-        return
-      
-      percent = formatStr.format(100 * (iteration / float(total)))
-      filledLength = int(round(barLength * iteration / float(total)))
-      bar = "\033[102m#\033[0m" * filledLength + "\033[100m-\033[0m" * (barLength - filledLength)
+    formatStr = "{0:." + str(decimals) + "f}"
+    
+    if iteration == 0 and total == 0:
+      percent = formatStr.format(total)
+      bar = "\033[101m-\033[0m" * barLength
       
       sys.stdout.write("\r%s [%s] %s%s " % ("[" + self.getTime() + "] [INFO]", bar, percent, "%"))
-      
-      if iteration == total:
-        sys.stdout.write("(completed)")
-        sys.stdout.write("\n")
-        sys.stdout.flush()
+      sys.stdout.write("(abolished)")
+      sys.stdout.write("\n")
+      sys.stdout.flush()
+      return
+    
+    percent = formatStr.format(100 * (iteration / float(total)))
+    filledLength = int(round(barLength * iteration / float(total)))
+    bar = "\033[102m#\033[0m" * filledLength + "\033[100m-\033[0m" * (barLength - filledLength)
+    
+    sys.stdout.write("\r%s [%s] %s%s " % ("[" + self.getTime() + "] [INFO]", bar, percent, "%"))
+    
+    if iteration == total:
+      sys.stdout.write("(completed)")
+      sys.stdout.write("\n")
+      sys.stdout.flush()

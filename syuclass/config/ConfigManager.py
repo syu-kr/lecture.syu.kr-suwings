@@ -16,11 +16,12 @@ import json
 import os
 import sys
 
-from syuclass.utils.Logger import Logger
+# from syuclass.utils.Logger import Logger
 
 class ConfigManager:
-  def __init__(self, DEBUGGER):
-    self.LOGGER = Logger(DEBUGGER)
+  def __init__(self):
+    # self.LOGGER = Logger()
+    pass
   
   def onRun(self) -> dict:
     DATA_PATH = "../../"
@@ -28,7 +29,8 @@ class ConfigManager:
     
     if not os.path.exists(REAL_PATH):
       configData = {
-        "dev": False,
+        "debugger": False,
+        "browser_head": False,
         "userid": "test1234",
         "passwd": "test1234",
         "check_year": False,
@@ -43,15 +45,16 @@ class ConfigManager:
       with open(REAL_PATH, "w", encoding = "utf-8") as f:
         json.dump(configData, f, ensure_ascii = False, indent = 2)
       
-      self.LOGGER.info("Check the file: " + REAL_PATH)
-      self.LOGGER.info("Set the config.json data.")
+      # self.LOGGER.info("Check the file: " + REAL_PATH)
+      # self.LOGGER.info("Set the config.json data.")
       sys.exit()
       
     with open(REAL_PATH, "r", encoding = "utf-8") as f:
       JSON_DATA = json.load(f)
       
       return {
-        "dev": JSON_DATA["dev"],
+        "debugger": JSON_DATA["debugger"],
+        "browser_head": JSON_DATA["browser_head"],
         "userid": JSON_DATA["userid"],
         "passwd": JSON_DATA["passwd"],
         "check_year": JSON_DATA["check_year"],
