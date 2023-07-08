@@ -1,1 +1,1 @@
-# lecture.syu.kr-crawlings
+# lecture.syu.kr-suwings
