@@ -36,8 +36,6 @@ class LectureCoreProcess(BaseProcess):
       "2학기 정규": "2",
       "2학기 계절": "3",
     }
-    
-    self.API = API(OPTIONS)
   
   def onRun(self) -> None:
     self.DRIVER.switch_to.frame("iframe1")
@@ -98,6 +96,8 @@ class LectureCoreProcess(BaseProcess):
       
       print(collegeTD.text + " " + str(LECTURES_COUNT) + "개")
       
+      self.API = API(self.OPTIONS)
+      
       while True:
         tr_count = 0
         around_time += 1
@@ -150,7 +150,8 @@ class LectureCoreProcess(BaseProcess):
           # print(text)
           
           self.API.lectureManualWrite(rawLectureInfo)
-          self.API.jsonWrite("수강편람", collegeTD.text)
+        
+      self.API.jsonWrite("수강편람", collegeTD.text)
       
       WebDriverWait(self.DRIVER, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//*[@id=\"sbF_FCLT_CD\"]"))
