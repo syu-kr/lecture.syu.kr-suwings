@@ -94,7 +94,7 @@ class LectureCoreProcess(BaseProcess):
       
       around_time = -1
       
-      print(collegeTD.text + " " + str(LECTURES_COUNT) + "개")
+      # print(collegeTD.text + " " + str(LECTURES_COUNT) + "개")
       
       self.API = API(self.OPTIONS)
       
@@ -114,7 +114,7 @@ class LectureCoreProcess(BaseProcess):
           rawLectureInfo = []
           text = ""
           
-          if tr_count == 13:
+          if tr_count == 14:
             WebDriverWait(self.DRIVER, 10).until(
               lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
             ).send_keys(Keys.PAGE_DOWN)
@@ -142,7 +142,7 @@ class LectureCoreProcess(BaseProcess):
             if td_index > 15:
               continue
             
-            text += "[" + str(td_index) + "]" + td.text + " "
+            text += td.text + " "
           
           if not text:
             continue

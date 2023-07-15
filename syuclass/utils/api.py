@@ -63,7 +63,7 @@ class API:
       "수업시간": "" if not rawLectureInfo[12] else rawLectureInfo[12],
       "장소": "" if not rawLectureInfo[13] else rawLectureInfo[13],
       "비고": "" if not rawLectureInfo[14] else rawLectureInfo[14],
-      "팀티칭여부": "" if not rawLectureInfo[14] else rawLectureInfo[15],
+      "팀티칭여부": "" if not rawLectureInfo[15] else rawLectureInfo[15],
     })
   
   def jsonWrite(self, dirName: str, pathName: str) -> None:
