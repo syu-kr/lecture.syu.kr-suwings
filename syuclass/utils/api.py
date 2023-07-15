@@ -31,7 +31,7 @@ class API:
       "식별번호": identification,
     })
   
-  def lectureInfoWrite(self, rawLectureInfo: str) -> None:
+  def lectureDescriptionWrite(self, rawLectureInfo: str) -> None:
     self.apiData.append({
       "순번": rawLectureInfo[0],
       "강좌번호": rawLectureInfo[2],
@@ -46,6 +46,24 @@ class API:
       "수업시간/장소": "" if not rawLectureInfo[14] else rawLectureInfo[14],
       "수업시간": "" if not rawLectureInfo[15] else rawLectureInfo[15],
       "장소": "" if not rawLectureInfo[16] else rawLectureInfo[16],
+    })
+  
+  def lectureManualWrite(self, rawLectureInfo: str) -> None:
+    self.apiData.append({
+      "순번": rawLectureInfo[0],
+      "강좌번호": rawLectureInfo[6],
+      "과목코드": rawLectureInfo[5],
+      "과목명": rawLectureInfo[7],
+      "학부(과)": rawLectureInfo[2],
+      "학년": rawLectureInfo[3][:-2],
+      "이수구분": rawLectureInfo[4],
+      "영역구분": rawLectureInfo[10],
+      "학점": rawLectureInfo[8],
+      "교수명": "" if not rawLectureInfo[11] else rawLectureInfo[11],
+      "수업시간": "" if not rawLectureInfo[12] else rawLectureInfo[12],
+      "장소": "" if not rawLectureInfo[13] else rawLectureInfo[13],
+      "비고": "" if not rawLectureInfo[14] else rawLectureInfo[14],
+      "팀티칭여부": "" if not rawLectureInfo[14] else rawLectureInfo[15],
     })
   
   def jsonWrite(self, dirName: str, pathName: str) -> None:

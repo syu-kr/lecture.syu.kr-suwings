@@ -37,6 +37,7 @@ class ConfigManager:
         "check_semester": False,
         "check_college": False,
         "check_grade": False,
+        "tyoe": "d",
         "year": "2023",
         "semester": "1학기 정규",
         "grade": "전체"
@@ -61,6 +62,7 @@ class ConfigManager:
         "check_semester": JSON_DATA["check_semester"],
         "check_college": JSON_DATA["check_college"],
         "check_grade": JSON_DATA["check_grade"],
+        "type": JSON_DATA["type"],
         "year": JSON_DATA["year"],
         "semester": JSON_DATA["semester"],
         "grade": JSON_DATA["grade"],

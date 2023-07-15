@@ -19,8 +19,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from syuclass.process.BaseProcess import BaseProcess
-from syuclass.process.lecture.LectureCoreProcess import LectureCoreProcess
-from syuclass.process.lecture.LecturePlanProcess import LecturePlanProcess
+from syuclass.process.lecture.description.LectureCoreProcess import LectureCoreProcess
+from syuclass.process.lecture.description.LecturePlanProcess import LecturePlanProcess
 from syuclass.utils.api import API
 from syuclass.utils.Logger import Logger
 

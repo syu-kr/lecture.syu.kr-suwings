@@ -17,12 +17,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from syuclass.process.lecture.description.LectureScanProcess import LectureScanProcess
+from syuclass.process.lecture.manual.LectureCoreProcess import LectureCoreProcess
 from syuclass.process.BaseProcess import BaseProcess
 from syuclass.utils.Logger import Logger
 
 class LectureInfoProcess(BaseProcess):
-  def __init__(self, DRIVER: webdriver.Chrome, LOGGER: Logger):
+  def __init__(self, DRIVER: webdriver.Chrome, OPTIONS: dict, LOGGER: Logger):
     self.DRIVER = DRIVER
+    self.OPTIONS = OPTIONS
     self.LOGGER = LOGGER
   
   def onRun(self) -> None:
@@ -30,8 +33,20 @@ class LectureInfoProcess(BaseProcess):
       EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_24\"]"))
     ).click()
     
-    WebDriverWait(self.DRIVER, 10).until(
-      EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_25\"]/tbody/tr/td[3]"))
-    ).click()
+    if self.OPTIONS["type"] == "d": # course description
+      WebDriverWait(self.DRIVER, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_25\"]/tbody/tr/td[3]"))
+      ).click()
+      
+      LSP = LectureScanProcess(self.DRIVER, self.OPTIONS, self.LOGGER)
+      LSP.onRun()
+    
+    elif self.OPTIONS["type"] == "m": # course manual
+      WebDriverWait(self.DRIVER, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_26\"]/tbody/tr/td[3]"))
+      ).click()
+      
+      LSP = LectureCoreProcess(self.DRIVER, self.OPTIONS, self.LOGGER)
+      LSP.onRun()
     
     self.LOGGER.info("LectureInfoProcess succeeded...")

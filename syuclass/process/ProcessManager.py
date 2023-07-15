@@ -20,13 +20,11 @@ import time
 from syuclass.process.start.StartProcess import StartProcess
 from syuclass.process.login.LoginProcess import LoginProcess
 from syuclass.process.lecture.LectureInfoProcess import LectureInfoProcess
-from syuclass.process.lecture.LectureScanProcess import LectureScanProcess
 from syuclass.utils.Logger import Logger
 
 class ProcessManager:
   def __init__(self, OPTIONS: dict):
     self.OPTIONS = OPTIONS
-    
     self.LOGGER = Logger()
       
   def onRun(self) -> None:
@@ -41,11 +39,8 @@ class ProcessManager:
       LP = LoginProcess(SP.DRIVER, self.OPTIONS, self.LOGGER)
       LP.onRun()
       
-      LIP = LectureInfoProcess(SP.DRIVER, self.LOGGER)
+      LIP = LectureInfoProcess(SP.DRIVER, self.OPTIONS, self.LOGGER)
       LIP.onRun()
-      
-      LSP = LectureScanProcess(SP.DRIVER, self.OPTIONS, self.LOGGER)
-      LSP.onRun()
     except Exception as e:
       self.LOGGER.info("An error occurred during processing...")
       self.LOGGER.info(str(e))

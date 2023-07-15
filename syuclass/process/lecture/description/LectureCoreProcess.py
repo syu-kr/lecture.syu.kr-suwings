@@ -108,7 +108,7 @@ class LectureCoreProcess(BaseProcess):
         if not text:
           continue
         
-        self.API.lectureInfoWrite(rawLectureInfo)
+        self.API.lectureDescriptionWrite(rawLectureInfo)
         
         self.LOGGER.progress(int(rawLectureInfo[0]), LECTURES_COUNT, 1, 50)
         
