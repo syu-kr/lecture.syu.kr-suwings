@@ -37,7 +37,7 @@ class ConfigManager:
         "check_semester": False,
         "check_college": False,
         "check_grade": False,
-        "tyoe": "d",
+        "type": "d",
         "year": "2023",
         "semester": "1학기 정규",
         "grade": "전체"
