@@ -12,9 +12,12 @@
 #  @link https://github.com/0verfl0w767
 #  @license MIT LICENSE
 #
-import os
-import chromedriver_autoinstaller
+from webdriver_manager.chrome import ChromeDriverManager
+# import os
+# import chromedriver_autoinstaller
+
 from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
 from syuclass.process.BaseProcess import BaseProcess
@@ -28,19 +31,19 @@ class StartProcess(BaseProcess):
   def onRun(self) -> None:
     # Not work: os.path.exists("C:\\Users\\kim\\Desktop\\Chromium.exe")
     
-    DRIVER_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../driver/"))
-    CHROMIUM_VER = chromedriver_autoinstaller.get_chrome_version().split(".")[0]
-    CHROMIUM_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../driver/" + CHROMIUM_VER + "/chromedriver.exe"))
+    # DRIVER_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../driver/"))
+    # CHROMIUM_VER = chromedriver_autoinstaller.get_chrome_version().split(".")[0]
+    # CHROMIUM_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../driver/" + CHROMIUM_VER + "/chromedriver.exe"))
     
-    if not os.path.exists(DRIVER_PATH):
-      os.makedirs(DRIVER_PATH)
+    # if not os.path.exists(DRIVER_PATH):
+    #   os.makedirs(DRIVER_PATH)
       
-      self.LOGGER.info("Chromedriver is not found...")
-      self.LOGGER.info("Start a manual download...")
+    #   self.LOGGER.info("Chromedriver is not found...")
+    #   self.LOGGER.info("Start a manual download...")
       
-      chromedriver_autoinstaller.install(False, DRIVER_PATH)
+    #   chromedriver_autoinstaller.install(False, DRIVER_PATH)
       
-      self.LOGGER.info("Check the driver: " + CHROMIUM_PATH)
+    #   self.LOGGER.info("Check the driver: " + CHROMIUM_PATH)
     
     options = Options()
     
@@ -51,7 +54,8 @@ class StartProcess(BaseProcess):
     # options.add_argument("disable-infobars")
     # options.add_argument("--disable-extensions")
     
-    self.DRIVER = webdriver.Chrome(executable_path = CHROMIUM_PATH, options = options)
+    # self.DRIVER = webdriver.Chrome(service=Service(CHROMIUM_PATH), options = options)
+    self.DRIVER = webdriver.Chrome(ChromeDriverManager().install())
     self.DRIVER.get("https://suwings.syu.ac.kr/sso/login.jsp")
     
     self.LOGGER.info(self.OPTIONS["year"] + " - " + self.OPTIONS["semester"])
