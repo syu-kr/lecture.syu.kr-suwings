@@ -50,9 +50,9 @@ class LectureCoreProcess(BaseProcess):
     if self.OPTIONS["debugger"]:
       self.LOGGER.debuggerInfo(f"{LECTURES_COUNT} classes were searched...")
       self.LOGGER.debuggerInfo(f"It will run around {SCROLL_COUNT + 1} times...")
-    
-    if LECTURES_COUNT == 0:
-      self.LOGGER.progress(0, 0, 1, 50)
+    else:
+      if LECTURES_COUNT == 0:
+        self.LOGGER.progress(0, 0, 1, 50)
 
     while True:
       tr_count = 0
@@ -110,10 +110,11 @@ class LectureCoreProcess(BaseProcess):
         
         self.API.lectureDescriptionWrite(rawLectureInfo)
         
-        self.LOGGER.progress(int(rawLectureInfo[0]), LECTURES_COUNT, 1, 50)
-        
         if self.OPTIONS["debugger"]:
           self.LOGGER.debuggerInfo(text)
+        else:
+          self.LOGGER.progress(int(rawLectureInfo[0]), LECTURES_COUNT, 1, 50)
     
     self.API.jsonWrite("전체대학", self.PATH_NAME)
     self.API.jsonWrite(self.DIR_NAME, self.PATH_NAME)
+    
