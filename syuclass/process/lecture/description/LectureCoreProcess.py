@@ -70,19 +70,24 @@ class LectureCoreProcess(BaseProcess):
       soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
       
       for tr in soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr"):
+        if soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr")[-1] == tr:
+          WebDriverWait(self.DRIVER, 10).until(
+            lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+          ).send_keys(Keys.PAGE_DOWN)
+        
         tr_count += 1
         td_index = -1
         rawLectureInfo = []
         text = ""
         
-        if tr_count == 22:
-          WebDriverWait(self.DRIVER, 10).until(
-            lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
-          ).send_keys(Keys.PAGE_DOWN)
-          tr_count = 0
+        # if tr_count == 22:
+        #   WebDriverWait(self.DRIVER, 10).until(
+        #     lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+        #   ).send_keys(Keys.PAGE_DOWN)
+        #   tr_count = 0
           
-          if around_time < SCROLL_COUNT:
-            break
+        #   if around_time < SCROLL_COUNT:
+        #     break
         
         if maxStatus:
           break

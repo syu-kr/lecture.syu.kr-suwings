@@ -12,7 +12,7 @@
 #  @link https://github.com/0verfl0w767
 #  @license MIT LICENSE
 #
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 # import os
 # import chromedriver_autoinstaller
 
@@ -55,8 +55,10 @@ class StartProcess(BaseProcess):
     # options.add_argument("--disable-extensions")
     
     # self.DRIVER = webdriver.Chrome(service=Service(CHROMIUM_PATH), options = options)
-    self.DRIVER = webdriver.Chrome(ChromeDriverManager().install())
+    # self.DRIVER = webdriver.Chrome(ChromeDriverManager().install())
+    self.DRIVER = webdriver.Chrome()
     self.DRIVER.get("https://suwings.syu.ac.kr/sso/login.jsp")
     
     self.LOGGER.info(self.OPTIONS["year"] + " - " + self.OPTIONS["semester"])
     self.LOGGER.info("StartProcess succeeded...")
+    
