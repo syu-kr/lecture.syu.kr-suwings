@@ -30,12 +30,12 @@ class LectureInfoProcess(BaseProcess):
   
   def onRun(self) -> None:
     WebDriverWait(self.DRIVER, 10).until(
-      EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_22\"]"))
+      EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_19\"]/tbody/tr[1]/td[3]"))
     ).click()
     
     if self.OPTIONS["type"] == "d": # course description
       WebDriverWait(self.DRIVER, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_23\"]/tbody/tr/td[3]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_20\"]/tbody/tr/td[3]"))
       ).click()
       
       LSP = LectureScanProcess(self.DRIVER, self.OPTIONS, self.LOGGER)
@@ -43,7 +43,7 @@ class LectureInfoProcess(BaseProcess):
     
     elif self.OPTIONS["type"] == "m": # course manual
       WebDriverWait(self.DRIVER, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_24\"]/tbody/tr/td[3]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_21\"]/tbody/tr/td[3]"))
       ).click()
       
       LSP = LectureCoreProcess(self.DRIVER, self.OPTIONS, self.LOGGER)
