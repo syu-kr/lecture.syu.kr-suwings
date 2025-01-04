@@ -86,8 +86,8 @@ class LectureCoreProcess(BaseProcess):
           ).send_keys(Keys.PAGE_DOWN)
           tr_count = 0
           
-          if around_time < SCROLL_COUNT:
-            break
+          # if around_time < SCROLL_COUNT:
+          #   break
         
         if maxStatus:
           break
@@ -99,8 +99,8 @@ class LectureCoreProcess(BaseProcess):
           if rawLectureInfo[0] == "":
             break
           
-          if around_time == SCROLL_COUNT and int(rawLectureInfo[0]) <= around_time * 21:
-            break
+          # if around_time == SCROLL_COUNT and int(rawLectureInfo[0]) <= around_time * 21:
+          #   break
           
           if int(rawLectureInfo[0]) == LECTURES_COUNT:
             maxStatus = True
