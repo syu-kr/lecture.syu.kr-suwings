@@ -77,8 +77,20 @@ class API:
     self.API_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), REAL_PATH + dirName + "/" + pathName + ".json"))
     
     apiJson = {}
+    apiJson["api"] = []
+    
     # apiJson["time"] = self.LOGGER.getTime()
-    apiJson["api"] = self.apiData
+    # apiJson["api"] = self.apiData
+
+    deduplication = {}
+
+    for i in self.apiData:
+      if "순번" in i:
+        deduplication[i["순번"]] = i
+      else:
+        apiJson["api"].append(i)
+    
+    apiJson["api"] += list(deduplication.values())
     
     with open(self.API_PATH, "w", encoding = "utf-8") as f:
       json.dump(apiJson, f, ensure_ascii = False, indent = 2)
