@@ -147,9 +147,10 @@ class LectureCoreProcess(BaseProcess):
           if not text:
             continue
           
-          # print(text)
-          
           self.API.lectureManualWrite(rawLectureInfo)
+          
+          if self.OPTIONS["debugger"]:
+            self.LOGGER.debuggerInfo(text)
         
       self.API.jsonWrite("수강편람", collegeTD.text)
       
