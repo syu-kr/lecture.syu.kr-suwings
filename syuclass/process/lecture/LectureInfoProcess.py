@@ -29,6 +29,12 @@ class LectureInfoProcess(BaseProcess):
     self.LOGGER = LOGGER
   
   def onRun(self) -> None:
+    try:
+      alert = WebDriverWait(self.DRIVER, 5).until(EC.alert_is_present())
+      alert.accept()
+    except:
+      pass
+
     WebDriverWait(self.DRIVER, 10).until(
       EC.element_to_be_clickable((By.XPATH, "//*[@id=\"treeview1_node_19\"]/tbody/tr[1]/td[3]"))
     ).click()
