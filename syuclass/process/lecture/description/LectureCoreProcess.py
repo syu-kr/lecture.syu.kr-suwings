@@ -53,6 +53,16 @@ class LectureCoreProcess(BaseProcess):
     else:
       if LECTURES_COUNT == 0:
         self.LOGGER.progress(0, 0, 1, 50)
+    
+    for _ in range(SCROLL_COUNT + 1):
+      WebDriverWait(self.DRIVER, 10).until(
+        lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+      ).send_keys(Keys.PAGE_DOWN)
+    
+    for _ in range(SCROLL_COUNT + 1):
+      WebDriverWait(self.DRIVER, 10).until(
+        lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+      ).send_keys(Keys.PAGE_UP) 
 
     while True:
       tr_count = 0
@@ -62,14 +72,14 @@ class LectureCoreProcess(BaseProcess):
       if self.OPTIONS["debugger"]:
         self.LOGGER.debuggerInfo(f"Around {around_time + 1} times...")
       
-      if around_time > SCROLL_COUNT:
+      if around_time > SCROLL_COUNT + 1:
         if self.OPTIONS["debugger"]:
           self.LOGGER.debuggerInfo("Exit the process...")
         break
       
       soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
       
-      for tr in soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr"):
+      for tr in soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr"): 
         # if soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr")[-1] == tr:
         #   WebDriverWait(self.DRIVER, 10).until(
         #     lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
@@ -91,6 +101,10 @@ class LectureCoreProcess(BaseProcess):
         
         if maxStatus:
           break
+
+        style = tr.get("style", "")
+        if "display: none" in style or "display:none" in style:
+          continue
         
         for td in tr.select("td"):
           td_index += 1
