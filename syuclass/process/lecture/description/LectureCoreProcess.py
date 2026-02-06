@@ -43,7 +43,7 @@ class LectureCoreProcess(BaseProcess):
     LECTURES_COUNT = int(self.DRIVER.find_element(By.XPATH, "//*[@id=\"gdM0_F0_total_cnt\"]").text[:-1])
     SCROLL_COUNT = math.floor((LECTURES_COUNT - 1) / 21)
 
-    around_time = -1
+    around_time = 0
     
     self.LOGGER.info("단과대학: " + self.DIR_NAME + ", 학부(과): " + self.PATH_NAME)
     
@@ -65,17 +65,77 @@ class LectureCoreProcess(BaseProcess):
       ).send_keys(Keys.PAGE_UP) 
 
     while True:
+      # 종료 조건을 먼저 검사하여 LECTURES_COUNT == 0 인 경우 루프 진입을 방지합니다.
+      if around_time >= SCROLL_COUNT + 1:
+        if self.OPTIONS["debugger"]:
+          self.LOGGER.debuggerInfo("Exit the process...")
+        break
+
       tr_count = 0
-      around_time += 1
       maxStatus = False
     
       if self.OPTIONS["debugger"]:
         self.LOGGER.debuggerInfo(f"Around {around_time + 1} times...")
+
+      soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
       
-      if around_time > SCROLL_COUNT + 1:
+      for tr in soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr"): 
+        # if soup.select("tbody[id=\"gdM0_F0_body_tbody\"] tr")[-1] == tr:
+        #   WebDriverWait(self.DRIVER, 10).until(
+        #     lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+        #   ).send_keys(Keys.PAGE_DOWN)
+        
+        tr_count += 1
+        td_index = -1
+        rawLectureInfo = []
+        text = ""
+        
+        if tr_count == 22:
+          WebDriverWait(self.DRIVER, 10).until(
+            lambda driver: driver.find_element(By.XPATH, "//*[@id=\"gdM0_F0\"]")
+          ).send_keys(Keys.PAGE_DOWN)
+          tr_count = 0
+          
+          # if around_time < SCROLL_COUNT:
+          #   break
+        
+        if maxStatus:
+          break
+
+        style = tr.get("style", "")
+        if "display: none" in style or "display:none" in style:
+          continue
+        
+        for td in tr.select("td"):
+          td_index += 1
+          rawLectureInfo.append(td.text)
+          
+          if rawLectureInfo[0] == "":
+            break
+          
+          # if around_time == SCROLL_COUNT and int(rawLectureInfo[0]) <= around_time * 21:
+          #   break
+          
+          if int(rawLectureInfo[0]) == LECTURES_COUNT:
+            maxStatus = True
+          
+          if td_index == 1 or td_index == 6 or td_index == 11 or td_index == 12 or td_index > 14:
+            continue
+          
+          text += td.text + " "
+        
+        if not text:
+          continue
+        
+        self.API.lectureDescriptionWrite(rawLectureInfo)
+        
         if self.OPTIONS["debugger"]:
-          self.LOGGER.debuggerInfo("Exit the process...")
-        break
+          self.LOGGER.debuggerInfo(text)
+        else:
+          self.LOGGER.progress(int(rawLectureInfo[0]), LECTURES_COUNT, 1, 50)
+
+      # 다음 반복 전 카운터를 증가시킵니다.
+      around_time += 1
       
       soup = BeautifulSoup(self.DRIVER.page_source, "html.parser")
       
