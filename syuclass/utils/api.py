@@ -67,14 +67,13 @@ class API:
     })
   
   def jsonWrite(self, dirName: str, pathName: str) -> None:
-    DATA_PATH = "../../data/"
-    YS_PATH = self.OPTIONS["year"] + "/" + self.OPTIONS["semester"] + "/"
-    REAL_PATH = DATA_PATH + YS_PATH
-    
-    if not os.path.exists(os.path.join(os.path.dirname(__file__), REAL_PATH + dirName)):
-      os.makedirs(os.path.join(os.path.dirname(__file__), REAL_PATH + dirName))
-    
-    self.API_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), REAL_PATH + dirName + "/" + pathName + ".json"))
+    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
+    target_dir = os.path.join(base_path, self.OPTIONS["year"], self.OPTIONS["semester"], dirName)
+
+    if not os.path.exists(target_dir):
+      os.makedirs(target_dir)
+
+    self.API_PATH = os.path.abspath(os.path.join(target_dir, pathName + ".json"))
     
     apiJson = {}
     apiJson["api"] = []

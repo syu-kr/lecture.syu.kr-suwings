@@ -12,6 +12,7 @@
 #  @link https://github.com/0verfl0w767
 #  @license MIT LICENSE
 #
+import os
 import subprocess
 import sys
 
@@ -29,7 +30,14 @@ def install_requirements(requirements_file):
     except Exception as e:
         print(e)
 
-install_requirements("requirements.txt")
+def is_truthy(value):
+    if value is None:
+        return False
+
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+if not is_truthy(os.getenv("SYU_SKIP_REQUIREMENTS_INSTALL")):
+    install_requirements("requirements.txt")
 
 from syuclass.config.ConfigManager import ConfigManager
 from syuclass.process.ProcessManager import ProcessManager

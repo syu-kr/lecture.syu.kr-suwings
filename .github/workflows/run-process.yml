@@ -1,0 +1,93 @@
+name: Run Process
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: Process type
+        required: true
+        default: m
+        type: choice
+        options:
+          - m
+          - d
+      year:
+        description: Academic year
+        required: true
+        default: "2026"
+        type: string
+      semester:
+        description: Semester
+        required: true
+        default: 2학기 정규
+        type: choice
+        options:
+          - 1학기 정규
+          - 1학기 계절
+          - 2학기 정규
+          - 2학기 계절
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    env:
+      LC_ALL: C.UTF-8
+      PYTHONUTF8: "1"
+      SYU_USERID: ${{ secrets.SYU_USERID }}
+      SYU_PASSWD: ${{ secrets.SYU_PASSWD }}
+      SYU_DEBUGGER: "true"
+      SYU_BROWSER_HEAD: "true"
+      SYU_CHECK_YEAR: "false"
+      SYU_CHECK_SEMESTER: "false"
+      SYU_CHECK_COLLEGE: "false"
+      SYU_CHECK_GRADE: "false"
+      SYU_TYPE: ${{ inputs.type }}
+      SYU_YEAR: ${{ inputs.year }}
+      SYU_SEMESTER: ${{ inputs.semester }}
+      SYU_GRADE: "전체"
+      SYU_SKIP_REQUIREMENTS_INSTALL: "true"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-chromedriver: true
+
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          if [ -z "${SYU_USERID}" ] || [ -z "${SYU_PASSWD}" ]; then
+            echo "::error::Set repository secrets SYU_USERID and SYU_PASSWD before running this workflow."
+            exit 1
+          fi
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run scraper
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
+        run: python main.py
+
+      - name: Upload scraped data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: process-${{ inputs.year }}-${{ inputs.semester }}-${{ inputs.type }}-${{ github.run_number }}
+          path: data/
+          if-no-files-found: warn
