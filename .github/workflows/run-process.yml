@@ -39,7 +39,7 @@ jobs:
       SYU_USERID: ${{ secrets.SYU_USERID }}
       SYU_PASSWD: ${{ secrets.SYU_PASSWD }}
       SYU_DEBUGGER: "true"
-      SYU_BROWSER_HEAD: "true"
+      SYU_BROWSER_HEAD: "false"
       SYU_CHECK_YEAR: "false"
       SYU_CHECK_SEMESTER: "false"
       SYU_CHECK_COLLEGE: "false"
