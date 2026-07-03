@@ -18,6 +18,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from syuclass.process.BaseProcess import BaseProcess
 from syuclass.utils.api import API
@@ -38,7 +39,9 @@ class LectureCoreProcess(BaseProcess):
       lambda driver: driver.find_element(By.XPATH, "//*[@id=\"opStatus\"]").text != "자료를 조회 중입니다."
     )
     
-    self.DRIVER.switch_to.frame("ifrForm")
+    WebDriverWait(self.DRIVER, 10).until(
+      EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//*[@id='ifrForm' or @name='ifrForm']"))
+    )
     
     LECTURES_COUNT = int(self.DRIVER.find_element(By.XPATH, "//*[@id=\"gdM0_F0_total_cnt\"]").text[:-1])
     SCROLL_COUNT = math.floor((LECTURES_COUNT - 1) / 21)

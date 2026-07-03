@@ -38,8 +38,12 @@ class LectureCoreProcess(BaseProcess):
     }
   
   def onRun(self) -> None:
-    self.DRIVER.switch_to.frame("iframe1")
-    self.DRIVER.switch_to.frame("ifrForm")
+    WebDriverWait(self.DRIVER, 10).until(
+      EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//*[@id='iframe1' or @name='iframe1']"))
+    )
+    WebDriverWait(self.DRIVER, 10).until(
+      EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//*[@id='ifrForm' or @name='ifrForm']"))
+    )
     
     GETYEAR = WebDriverWait(self.DRIVER, 10).until(
       EC.element_to_be_clickable((By.XPATH, "//*[@id=\"ipF_YY\"]"))
@@ -77,7 +81,9 @@ class LectureCoreProcess(BaseProcess):
       ).click()
       
       self.DRIVER.switch_to.default_content()
-      self.DRIVER.switch_to.frame("iframe1")
+      WebDriverWait(self.DRIVER, 10).until(
+        EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//*[@id='iframe1' or @name='iframe1']"))
+      )
       
       WebDriverWait(self.DRIVER, 10).until(
         EC.element_to_be_clickable((By.XPATH, "//*[@id=\"tgSelect\"]"))
@@ -87,7 +93,9 @@ class LectureCoreProcess(BaseProcess):
         lambda driver: driver.find_element(By.XPATH, "//*[@id=\"opStatus\"]").text != "자료를 조회 중입니다."
       )
       
-      self.DRIVER.switch_to.frame("ifrForm")
+      WebDriverWait(self.DRIVER, 10).until(
+        EC.frame_to_be_available_and_switch_to_it((By.XPATH, "//*[@id='ifrForm' or @name='ifrForm']"))
+      )
       
       LECTURES_COUNT = int(self.DRIVER.find_element(By.XPATH, "//*[@id=\"gdM0_F0_column177\"]").text[:-1])
       SCROLL_COUNT = math.floor((LECTURES_COUNT - 1) / 13)
