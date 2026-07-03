@@ -31,19 +31,31 @@ class ProcessManager:
     self.LOGGER.logo()
     
     start = time.time()
-    
-    SP = StartProcess(self.OPTIONS, self.LOGGER)
-    SP.onRun()
-      
-    try:
-      LP = LoginProcess(SP.DRIVER, self.OPTIONS, self.LOGGER)
-      LP.onRun()
-      
-      LIP = LectureInfoProcess(SP.DRIVER, self.OPTIONS, self.LOGGER)
-      LIP.onRun()
-    except Exception as e:
-      self.LOGGER.info("An error occurred during processing...")
-      self.LOGGER.info(str(e))
+
+    lecture_types = ["d", "m"] if self.OPTIONS["type"] == "a" else [self.OPTIONS["type"]]
+
+    for lecture_type in lecture_types:
+      run_options = dict(self.OPTIONS)
+      run_options["type"] = lecture_type
+      run_options["check_year"] = False
+      run_options["check_semester"] = False
+      run_options["check_college"] = False
+      run_options["check_grade"] = False
+
+      SP = StartProcess(run_options, self.LOGGER)
+      SP.onRun()
+
+      try:
+        LP = LoginProcess(SP.DRIVER, run_options, self.LOGGER)
+        LP.onRun()
+        
+        LIP = LectureInfoProcess(SP.DRIVER, run_options, self.LOGGER)
+        LIP.onRun()
+      except Exception as e:
+        self.LOGGER.info("An error occurred during processing...")
+        self.LOGGER.info(str(e))
+      finally:
+        SP.DRIVER.quit()
     
     end = time.time()
     
@@ -67,4 +79,3 @@ class ProcessManager:
     # solved this problem. in pypy\Lib\threading.py (1066 lines)
     # "raise" code annotation inside the _wait_for_tstate_lock()
     
-    SP.DRIVER.quit()

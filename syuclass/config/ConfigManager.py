@@ -50,7 +50,7 @@ class ConfigManager:
     "grade": "SYU_GRADE",
   }
 
-  VALID_TYPES = {"d", "m"}
+  VALID_TYPES = {"d", "m", "a"}
   VALID_SEMESTERS = {
     "1학기 정규",
     "1학기 계절",
