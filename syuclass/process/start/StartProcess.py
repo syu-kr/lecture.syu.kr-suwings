@@ -77,6 +77,9 @@ class StartProcess(BaseProcess):
     else:
       self.DRIVER = webdriver.Chrome(options = options)
 
+    if self.OPTIONS["browser_head"]:
+      self.DRIVER.maximize_window()
+
     self.DRIVER.get("https://suwings.syu.ac.kr/sso/login.jsp")
 
     self.LOGGER.info(self.OPTIONS["year"] + " - " + self.OPTIONS["semester"])
